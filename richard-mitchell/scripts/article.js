@@ -28,9 +28,9 @@ Article.prototype.toHtml = function() {
   return template(this);
 };
 
-// REVIEW: There are some other functions that also relate to all articles across the board, rather than just single instances. Object-oriented programming would call these "class-level" functions, that are relevant to the entire "class" of objects that are Articles.
+// REVIEWED: There are some other functions that also relate to all articles across the board, rather than just single instances. Object-oriented programming would call these "class-level" functions, that are relevant to the entire "class" of objects that are Articles.
 
-// REVIEW: This function will take the rawData, how ever it is provided, and use it to instantiate all the articles. This code is moved from elsewhere, and encapsulated in a simply-named function for clarity.
+// REVIEWED: This function will take the rawData, how ever it is provided, and use it to instantiate all the articles. This code is moved from elsewhere, and encapsulated in a simply-named function for clarity.
 
 // COMMENT: Where is this function called? What does 'rawData' represent now? How is this different from previous labs?
 // We call the function in Article.fetchAll. rawData is a parameter now, or a placeholder. Previously rawData was our object literals that we compiled through Handlebars from a separate .js file into our template to append to the HTML.
@@ -52,13 +52,14 @@ Article.fetchAll = () => {
     $.ajax ({
       url: './data/hackerlpsum.json',
       method: 'GET',
-      success: function (data) {
-        console.log('data', data);
+      success: function (rawData) {
+        JSON.parse(rawData),
+        Article.loadAll(),
+        localStorage.setItem(rawData)
       },
       fail: function (err) {
         console.log('Err', err);
       }
     })
-
   }
 }
