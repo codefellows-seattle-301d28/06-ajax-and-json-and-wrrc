@@ -38,6 +38,7 @@ Article.loadAll = rawData => {
   rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
   rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
+  articleView.initIndexPage();
 }
 
 // REVIEWED: This function will retrieve the data from either a local or remote source, and process it, then hand off control to the View.
@@ -45,10 +46,12 @@ Article.fetchAll = () => {
   // REVIEWED: What is this 'if' statement checking for? Where was the rawData set to local storage?
   // the if statement is checking if anything at all is stored in local storage, which is set by the 'else'.
   if (localStorage.rawData) {
-
     Article.loadAll(JSON.parse(localStorage.rawData));
 
   } else {
-    localStorage.rawData = $.getJSON('data/hackerIpsum.json');
+    $.getJSON('data/hackerIpsum.json').then(function (data){
+      localStorage.rawData = JSON.stringify(data);
+      Article.loadAll(data);
+    })
   }
 }
