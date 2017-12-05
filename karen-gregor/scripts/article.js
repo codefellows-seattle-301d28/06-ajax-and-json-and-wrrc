@@ -48,17 +48,31 @@ Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
   if (localStorage.rawData) {
 
-    Article.loadAll(JSON.parse(localStorage.rawData));
+    //stretch goal. Using AJAX HEAD request to check the ETag value without looking at the full file
+    $.ajax({
+      type: 'HEAD', url: 'data/hackerIpsum.json', complete: function(xhr) {
+        let ETag = xhr.getResponseHeader('ETag');
+        console.log(`current ETag: ${localStorage.ETag}, latest ETag: ${ETag}`);
+        localStorage.ETag === ETag ? Article.loadAll(JSON.parse(localStorage.rawData)) : retrieveJSON();
+      }
+    });
 
-
+    // Article.loadAll(JSON.parse(localStorage.rawData)); basic solution
   } else {
     //COMMENT:  First, we retrieve date from JSON file.  Then load the data into the Article.all array by calling .loadall function. Last, store in localStorage.
+    retrieveJSON();
+  }
+
+  function retrieveJSON() {
     $.getJSON('data/hackerIpsum.json', function (data, message, xhr) {
     //  console.log(xhr);
+      console.log('retrieving JSON')
     })
-      .done(function (data) {
+      .done(function (data, message, xhr) {
         Article.loadAll(data);
         localStorage.rawData=JSON.stringify(data); //Storing data to localStorage
+        localStorage.ETag=xhr.getResponseHeader('ETag');
+        console.log('ETag',localStorage.ETag);
         console.log('Done');
       });
   }
