@@ -33,7 +33,7 @@ Article.prototype.toHtml = function() {
 // REVIEW: This function will take the rawData, how ever it is provided, and use it to instantiate all the articles. This code is moved from elsewhere, and encapsulated in a simply-named function for clarity.
 
 // COMMENT: Where is this function called? What does 'rawData' represent now? How is this different from previous labs?
-// PUT YOUR RESPONSE HERE
+// This function is called on load if localStorage has rawdata in it.
 Article.loadAll = rawData => {
   rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
@@ -42,27 +42,22 @@ Article.loadAll = rawData => {
 
 // REVIEW: This function will retrieve the data from either a local or remote source, and process it, then hand off control to the View.
 Article.fetchAll = () => {
-  console.log('inside fetchAll');
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
+  // This if is checking for rawData object in localStorage. rawData is stored as value for the key rawData.
   if (localStorage.rawData) {
-
-    Article.loadAll();
-
+    Article.loadAll(JSON.parse(localStorage.rawData));
   } else {
-    let rawData = [];
-    $.getJSON('data/js.json')
+    $.getJSON('data/hackerIpsum.json')
       .then(data => {
-        data.forEach(function callback(value, index, array){
-          console.log(data[index].author)
-          localStorage.setItem(rawData.author, data[index].author)})})
+        localStorage.setItem('rawData',JSON.stringify(data))})
       .catch(err => console.error(err))
   }
 }
 
-// localStorage.setItem(rawData.author, data[element].author)})})
+
 
 // .then(data => {for (let key in data) {
-//   localStorage.setItem[key] = data[key]
+// localStorage.setItem(rawData.author, data[element].author)})})
 // }})
 // .catch(err => console.error(err))
 // }
