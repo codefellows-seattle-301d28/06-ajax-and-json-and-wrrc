@@ -38,19 +38,27 @@ Article.loadAll = rawData => {
   rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
   rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
+  articleView.initIndexPage();
 }
 
 // REVIEW: This function will retrieve the data from either a local or remote source, and process it, then hand off control to the View.
 Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
-  if (localStorage.rawData) {
+  let eTag
+  $.ajax({
+    type: 'HEAD',
+    url: 'data/hackerIpsum.json'
+  }).then((data, status, headers)=> {
+    eTag = headers.getResponseHeader('eTag');
+    if (localStorage.eTag === eTag) {
+      Article.loadAll(JSON.parse(localStorage.rawData));
 
-    Article.loadAll(JSON.parse(localStorage.rawData));
-
-  } else {
-    $.getJSON('data/hackerIpsum.json').then(data => {
-      localStorage.rawData = JSON.stringify(data);
-      Article.loadAll(data)
-    }, err => console.err(err))
-  }
+    } else {
+      localStorage.eTag = eTag;
+      $.getJSON('data/hackerIpsum.json', data => {
+        localStorage.rawData = JSON.stringify(data);
+        Article.loadAll(data)
+      })
+    }
+  })
 }
