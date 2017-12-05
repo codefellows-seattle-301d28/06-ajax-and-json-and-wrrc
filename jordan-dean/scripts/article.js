@@ -55,3 +55,4 @@ Article.fetchAll = () => {
     })
   }
 }
+  //For the else first we had to retrieve the information we were using, then we had to make sure that it was stringified so we could use that data with localstorage, and once it was stringified and in local storage we populated the articles with the unstringified data.
