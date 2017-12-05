@@ -1,22 +1,26 @@
 # Project Name
 
-**Author**: Your Name Goes Here
-**Version**: 1.0.0 (increment the patch/fix version number up if you make more commits past your first submission)
+**Author**: Richard & Mitchell
+**Version**: 1.0.0 
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 301 class. (i.e. What's your problem domain?) -->
+This application is built to populate a blog with articles by means of a faux server. It also allows for the creation of articles and subsequent population of them on the page.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+Any user looking to get this running would need to fork or clone the repository, open it in their favorite code editor (if they are looking to modify the article content), and then simply run their own live-server or open in their favorite browser to view and interact with the page.
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+In this application we utilized the languages of HTML, CSS, and Javascript and the libraries of:
+jQuery https://developers.google.com/speed/libraries/#jquery
+Handlebars (see below)
 
 ## Change Log
-<!-- Use this are to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with GET and POST routes for the book resource.
+12-05-2017 11:46AM - Application functioning as intended.
 
 ## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
--->
+Richard https://github.com/montgomeryrd
+Mitchell https://github.com/futurebound
+
+Handlebars http://handlebarsjs.com/
+Arrow Functions MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+Ternary Operator MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
