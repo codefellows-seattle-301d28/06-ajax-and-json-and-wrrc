@@ -107,7 +107,6 @@ articleView.create = () => {
 
 
 articleView.initIndexPage = () => {
-  console.log('index');
   Article.fetchAll();
   Article.all.forEach(article => {
     $('#articles').append(article.toHtml())
