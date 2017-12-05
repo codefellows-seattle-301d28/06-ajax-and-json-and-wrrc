@@ -88,13 +88,44 @@ _Your README.md must include:_
 **Version**: 1.0.0 (increment the patch/fix version number up if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 301 class. (i.e. What's your problem domain?) -->
+Our app is a blog that will populate all the blog info using localstorage, and will eventually have a database to call upon and allow users to update the page dynamically
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+First make sure your blog content can be applied to a template with handlebars so you're not having to hard code, then make sure your functions are populating the data correctly, then set up localstorage to maintain all the articles that show.
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+
+06-ajax-and-json-and-wrrc
+└──driver-navigator
+  ├── .eslintrc.json
+  ├── .gitignore
+  ├── LICENSE
+  ├── README.md
+  ├── data
+  │   └── hackerIpsum.json
+  ├── index.html
+  ├── new.html
+  ├── scripts
+  │   ├── article.js
+  │   └── articleView.js
+  ├── styles
+  │   ├── base.css
+  │   ├── layout.css
+  │   └── modules.css
+  └── vendor
+      ├── scripts
+      │   └── highlight.pack.js
+      └── styles
+          ├── fonts
+          │   ├── icomoon.eot
+          │   ├── icomoon.svg
+          │   ├── icomoon.ttf
+          │   └── icomoon.woff
+          ├── default.css
+          ├── icons.css
+          ├── normalize.css
+          └── railscasts.css
+
 
 ## Change Log
 <!-- Use this are to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
