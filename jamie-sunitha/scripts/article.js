@@ -35,9 +35,9 @@ Article.prototype.toHtml = function() {
 // COMMENT: Where is this function called? What does 'rawData' represent now? How is this different from previous labs?
 // This function is called on load if localStorage has rawdata in it.
 Article.loadAll = rawData => {
-  rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
+  rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-  rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
+  rawData.forEach(articleObject => Article.all.push(new Article(articleObject)));
 }
 
 // REVIEW: This function will retrieve the data from either a local or remote source, and process it, then hand off control to the View.
@@ -46,16 +46,29 @@ Article.fetchAll = () => {
   // This if is checking for rawData object in localStorage. rawData is stored as value for the key rawData.
   if (localStorage.rawData) {
     Article.loadAll(JSON.parse(localStorage.rawData));
-  } else {
+    articleView.initIndexPage();
+  } 
+  else {
     $.getJSON('data/hackerIpsum.json')
-      .then(data => {
-        localStorage.setItem('rawData',JSON.stringify(data))})
+      .then(function(rwdata) {
+        Article.loadAll(rwdata);
+        localStorage.rawData = JSON.stringify(rwdata);
+        articleView.initIndexPage();
+      })
       .catch(err => console.error(err))
   }
 }
 
+// The article.load has to wait for the Ajax query to complete successfully - hence it is in the .then and we cant do below code
 
-
+// if (!(localStorage.rawData)) {
+//   $.getJSON('data/hackerIpsum.json')
+//     .then(function(rwdata) {localStorage.rawData = JSON.stringify(rwdata)})
+//     .catch(err => console.error(err))
+// }
+//   Article.loadAll(rwdata);
+//   articleView.initIndexPage();
+//-----------------
 // .then(data => {for (let key in data) {
 // localStorage.setItem(rawData.author, data[element].author)})})
 // }})
