@@ -46,32 +46,13 @@ Article.fetchAll = () => {
   // This if is checking for rawData object in localStorage. rawData is stored as value for the key rawData.
   if (localStorage.rawData) {
     Article.loadAll(JSON.parse(localStorage.rawData));
-    articleView.initIndexPage();
   } 
   else {
-    $.getJSON('data/hackerIpsum.json')
-      .then(function(rwdata) {
-        Article.loadAll(rwdata);
-        localStorage.rawData = JSON.stringify(rwdata);
-        articleView.initIndexPage();
-      })
-      .catch(err => console.error(err))
+    $.getJSON('../data/hackerIpsum.json', function(data) {
+      localStorage.rawData = JSON.stringify(data)
+      Article.loadAll(data);
+    })
   }
+  articleView.initIndexPage(); 
 }
-
 // The article.load has to wait for the Ajax query to complete successfully - hence it is in the .then and we cant do below code
-
-// if (!(localStorage.rawData)) {
-//   $.getJSON('data/hackerIpsum.json')
-//     .then(function(rwdata) {localStorage.rawData = JSON.stringify(rwdata)})
-//     .catch(err => console.error(err))
-// }
-//   Article.loadAll(rwdata);
-//   articleView.initIndexPage();
-//-----------------
-// .then(data => {for (let key in data) {
-// localStorage.setItem(rawData.author, data[element].author)})})
-// }})
-// .catch(err => console.error(err))
-// }
-// }
